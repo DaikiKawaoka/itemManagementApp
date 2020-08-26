@@ -12,6 +12,8 @@ import userShow from 'users/show.vue'
 import userNew from 'users/new.vue'
 import userForm from 'users/form.vue'
 import userEdit from 'users/edit.vue'
+import loginPage from 'sessions/login.vue'
+
 
 
 const router = new VueRouter({
@@ -19,6 +21,9 @@ const router = new VueRouter({
   routes: [
     { path: '/',
       component: staticHome  },
+    { path: '/login',
+      name: 'loginPage',
+      component: loginPage  },
     { path: '/users/:id(\\d+)',  // :id は数値のみに制限する
       name: 'userShow',
       component: userShow  },

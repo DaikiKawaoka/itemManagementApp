@@ -27,7 +27,13 @@
       </el-input>
     </el-form-item>
 
-    <el-form-item label="メールアドレス" prop="email">
+    <el-form-item
+    label="メールアドレス" prop="email"
+    :rules="[
+        { required: true, message: 'タイトルは必ず入力してください。' },
+        { max: 30, message: '30文字以内で入力してください。' },
+        { type: 'email', message: 'メール形式で入力してください。' }
+    ]">
         <el-input type="text" v-model="user.email" autocomplete="off"></el-input>
     </el-form-item>
 
