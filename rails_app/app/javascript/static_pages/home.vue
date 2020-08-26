@@ -1,16 +1,12 @@
 <template>
   <div id="app">
-    <div>
-      <router-link to="/">Home</router-link>
-      <!-- <router-link to="#">Login</router-link> -->
-      <router-link to="users/new">New</router-link>
-    </div>
+    <header-page></header-page>
   </div>
 </template>
 <script>
-// import ToDoForm from '../to_dos/to-do-form'
-// import ToDoTable from '../to_dos/to-do-table'
+
 import axios from "axios";
+import HeaderPage from '../layouts/header.vue';
 // import {reject, filter} from 'lodash';
 export default {
   data() {
@@ -18,5 +14,8 @@ export default {
 
     };
   },
+  components: {
+    HeaderPage,
+  }
 };
 </script>

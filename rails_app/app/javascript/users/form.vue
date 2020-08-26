@@ -7,7 +7,6 @@
       </ul>
     </div>
 
-
     <el-form-item label="名前">
       <el-input
         v-model="user.name"
@@ -20,12 +19,22 @@
         placeholder="user_name"
         name="user[user_name]"></el-input>
     </el-form-item>
+
+    <el-form-item label="コメント" v-if="edit">
+      <el-input
+        v-model="user.comment"
+        placeholder="comment">
+      </el-input>
+    </el-form-item>
+
     <el-form-item label="メールアドレス" prop="email">
         <el-input type="text" v-model="user.email" autocomplete="off"></el-input>
     </el-form-item>
+
     <el-form-item label="パスワード" prop="password">
         <el-input type="password" v-model="user.password" autocomplete="off"></el-input>
     </el-form-item>
+
     <el-form-item label="パスワード確認" prop="password">
         <el-input type="password" v-model="user.password_confirmation" autocomplete="off"></el-input>
     </el-form-item>
@@ -42,7 +51,8 @@ import axios from 'axios'
  export default {
    props: {
     user: {},
-    errors: ''
+    errors: '',
+    edit: false,
   },
  }
 </script>

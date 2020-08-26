@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <header-page></header-page>
-    <user-form :errors="errors" :user="user" @submit="createUser"></user-form>
+    <user-form :errors="errors" :user="user" @submit="updateUser" :edit="edit"></user-form>
   </div>
 </template>
 <script>
@@ -16,24 +16,22 @@ export default {
   },
   data() {
     return {
-      user: {
-         name: '',
-         user_name: '',
-         email: '',
-         comment: '',
-         password: '',
-         password_confirmation: '',
-       },
-       errors: ''
+      user: {},
+      errors: '',
+      edit: true,
     };
   },
+  mounted () {
+    axios
+      .get(`/api/v1/users/${this.$route.params.id}.json`)
+      .then(response => (this.user = response.data))
+  },
   methods: {
-    createUser: function() {
+    updateUser: function() {
       axios
-        .post('/api/v1/users',this.user)
+        .patch(`/api/v1/users/${this.user.id}`, this.user)
         .then(response => {
-          let e = response.data;
-          this.$router.push({ name: 'userShow', params: { id: e.id } });
+          this.$router.push({ name: 'userShow', params: { id: this.user.id } });
         })
         .catch(error => {
           console.error(error);

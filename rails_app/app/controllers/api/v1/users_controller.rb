@@ -1,6 +1,6 @@
 class Api::V1::UsersController < ActionController::API
 
-  before_action :set_user, only: [:show]
+  before_action :set_user, only: [:show, :update]
   wrap_parameters :user, include: [:name,:user_name,:email,:password, :password_confirmation]
 
     # 拾えなかったExceptionが発生したら500 Internal server errorを応答する
@@ -17,9 +17,17 @@ class Api::V1::UsersController < ActionController::API
   end
 
   def create
-    @user = User.new(user_params)
+    @user = User.new(user_params_new)
     if @user.save
-      render status: :created
+      render status: 200, json: { status: 200 }
+    else
+      render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  def update
+    if @user.update(user_params_update)
+      head :no_content
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -32,12 +40,11 @@ class Api::V1::UsersController < ActionController::API
     end
 
     def user_params_new
-      params.require(:user).permit(:name, :email, :password,
-                                  :password_confirmation,:sex,:user_name,:image,:user_notification)
+      params.require(:user).permit(:name, :user_name, :email, :password, :password_confirmation)
     end
 
-    def user_params
-      params.require(:user).permit(:name, :user_name, :comment, :email, :password, :password_confirmation)
+    def user_params_update
+      params.permit(:name, :user_name, :comment, :email, :password, :password_confirmation)
     end
 
     def render_status_404(exception)
