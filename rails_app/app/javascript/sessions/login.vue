@@ -9,13 +9,13 @@
 
       <el-form label-width="80px">
         <el-form-item label="email">
-          <el-input type="email" v-model="user.email"></el-input>
+          <el-input type="email" v-model="email"></el-input>
         </el-form-item>
         <el-form-item label="Password">
-          <el-input type="password" v-model="user.password"></el-input>
+          <el-input type="password" v-model="password"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button style="float: right" type="primary" >Login</el-button>
+          <el-button style="float: right" type="primary" @click="loginUser">Login</el-button>
         </el-form-item>
       </el-form>
 
@@ -24,16 +24,32 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   data() {
     return {
-      user: {
-         email: '',
-         password: '',
-       },
-       errors: ''
+      email: '',
+      password: '',
+      errors: ''
     };
   },
+  methods: {
+    loginUser: function() {
+      axios
+        .post('/api/v1/sessions',{password: this.password, email: this.email})
+        .then(response => {
+          let e = response.data;
+          this.$router.push({ name: 'staticHome'});
+        })
+        .catch(error => {
+          console.error(error);
+          if (error.response.data && error.response.data.errors) {
+            this.errors = error.response.data.errors;
+          }
+        });
+    }
+  }
 }
 </script>
 

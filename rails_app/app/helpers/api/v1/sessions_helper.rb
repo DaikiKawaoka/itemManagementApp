@@ -13,6 +13,7 @@ module Api::V1::SessionsHelper
     end
   end
 
+
   #受け取ったユーザーがログイン中のユーザーと一致すればtrueを返す
   def current_user?(user)
     user == current_user

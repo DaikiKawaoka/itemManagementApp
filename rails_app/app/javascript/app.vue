@@ -20,6 +20,7 @@ const router = new VueRouter({
   mode: 'history',
   routes: [
     { path: '/',
+      name: 'staticHome',
       component: staticHome  },
     { path: '/login',
       name: 'loginPage',
