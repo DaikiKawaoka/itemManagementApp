@@ -32,7 +32,7 @@ export default {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status ===200){
+          if (response.status === 200){
             this.user = response.data;
             this.logged = true;
           }else{
@@ -43,10 +43,14 @@ export default {
     logout: function() {
       axios
         .delete('/logout')
-        if (res.status === 200) {
+        .then(response => {
+        if (response.status === 200) {
           this.user = {};
           this.logged = false;
-        }
+          this.$router.go()
+        }else if(res.status === 401){
+          this.logged = false;
+        }})
     }
   }
 };

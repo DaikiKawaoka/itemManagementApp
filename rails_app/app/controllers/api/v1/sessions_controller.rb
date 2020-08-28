@@ -30,7 +30,7 @@ class Api::V1::SessionsController < ActionController::API
         render status: 400, json: { status: 400, message: 'ログアウト失敗' }
       end
     else
-      render status: 400, json: { status: 400, message: 'そもそもログインしていません' }
+      render status: 401, json: { status: 401, message: 'そもそもログインしていません' }
     end
 
   end
