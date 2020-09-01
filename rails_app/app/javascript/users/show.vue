@@ -2,10 +2,19 @@
   <div id="app">
     <header-page :logged="logged" :user="user"></header-page>
     <h2>{{ showUser.user_name }}の詳細ページ</h2>
-    <p id="profile_name">Name: {{showUser.name}}</p>
-    <p id="profile_user_name">UserName: {{showUser.user_name}}</p>
-    <p>Comment: {{ showUser.comment }}</p>
-    <img :src="showUser.imgtext" alt="user_image" class="userImage">
+    <div class="main">
+      <div class="image">
+        <div class="thumbs">
+          <img :src="showUser.imgtext" alt="user_image" class="userImage">
+        </div>
+      </div>
+      <div class="text">
+        <p id="profile_name" class="text-p">Name: {{showUser.name}}</p>
+        <p id="profile_user_name" class="text-p">UserName: {{showUser.user_name}}</p>
+        <p class="text-p">Comment: {{ showUser.comment }}</p>
+        <p class="text-p">Email: {{ showUser.email }}</p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -62,8 +71,34 @@ export default {
 </script>
 
 <style scoped>
-.userImage{
+.thumbs {
+  width: 100%;
+  max-width: 400px;
+  position: relative;
+}
+.thumbs::before {
+  content: "";
+  display: block;
+  padding-top: 100%;
+}
+.thumbs img {
   width: 400px;
   height: 400px;
+  position: absolute;
+  top: 0;
+  object-fit: cover;
+}
+.main{
+  display: flex;
+}
+.image{
+  width: 450px;
+}
+.text{
+  margin-top: 30px;
+}
+.text-p{
+  font-size: 20px;
+  padding-bottom: 15px;
 }
 </style>
