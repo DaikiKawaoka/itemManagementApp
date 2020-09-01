@@ -12,6 +12,9 @@ import userShow from 'users/show.vue'
 import userNew from 'users/new.vue'
 import userForm from 'users/form.vue'
 import userEdit from 'users/edit.vue'
+import itemShow from 'items/show.vue'
+import itemNew from 'items/new.vue'
+import itemEdit from 'items/edit.vue'
 import loginPage from 'sessions/login.vue'
 
 
@@ -34,6 +37,15 @@ const router = new VueRouter({
     { path: '/users/:id(\\d+)/edit',
       name: 'userEdit',
       component: userEdit   },
+    { path: '/items/:id(\\d+)',
+      name: 'itemShow',
+      component: itemShow   },
+    { path: '/items/new',
+      name: 'itemNew',
+      component: itemNew  },
+    { path: '/items/:id(\\d+)/edit',
+      name: 'itemEdit',
+      component: itemEdit   },
   ]
 })
 

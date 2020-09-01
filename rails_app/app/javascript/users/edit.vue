@@ -41,7 +41,7 @@ export default {
             this.user = response.data;
             this.logged = true;
           }else{
-            this.$router.push({ name: 'staticHome'})
+            this.$router.push({ name: 'loginPage'})
           }
         })
     },
@@ -49,7 +49,7 @@ export default {
       axios
         .patch(`/api/v1/users/${this.user.id}`,  this.user)
         .then(response => {
-          // this.$router.push({ name: 'userShow', params: { id: this.user.id } });
+          this.$router.push({ name: 'userShow', params: { id: this.user.id } });
         })
         .catch(error => {
           console.error(error);

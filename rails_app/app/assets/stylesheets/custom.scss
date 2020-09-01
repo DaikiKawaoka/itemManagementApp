@@ -1,0 +1,67 @@
+// このファイルに書いたcssは全てのファイルに影響する。
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+#app{
+  width: 1000px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.star-rating {
+  position: relative;
+  margin-left: 4%;
+  .rate{
+    font-size: 30px;
+    width: 110px;
+    height: 20px;
+  }
+  .rate::before,
+  .rate::after{
+  content: '★★★★★';
+  }
+  .rate::before{
+  color: #ccc;
+  }
+  .rate::after{
+  position: absolute;
+  left:-18px;
+  top:18px;
+  color: #f3d680;
+  overflow: hidden;
+  }
+  .rate.rate0-0::after{
+  width: 0;
+  }
+  .rate.rate0-5::after{
+    width: 0;
+  }
+  .rate.rate1-0::after{
+  width: 1em;
+  }
+  .rate.rate1-5::after{
+  width: 1.5em;
+  }
+  .rate.rate2-0::after{
+  width: 2em;
+  }
+  .rate.rate2-5::after{
+  width: 2.5em;
+  }
+  .rate.rate3-0::after{
+  width: 3em;
+  }
+  .rate.rate3-5::after{
+  width: 3.5em;
+  }
+  .rate.rate4-0::after{
+  width: 4em;
+  }
+  .rate.rate4-5::after{
+  width: 4.5em;
+  }
+  .rate.rate5-0::after{
+  width: 5em;
+  }
+}

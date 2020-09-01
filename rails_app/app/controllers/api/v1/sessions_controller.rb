@@ -7,7 +7,7 @@ class Api::V1::SessionsController < ActionController::API
       #ログインしている
     else
       #ログインしていない
-      render status: 400, json: { status: 400, message: 'ログインしていません' }
+      render status: 201, json: { status: 201, message: 'ログインしていません' }
     end
   end
 
@@ -17,7 +17,7 @@ class Api::V1::SessionsController < ActionController::API
       log_in @user
       render status: 200, json: { status: 200, message: 'ログイン成功' }
     else
-      render status: 400, json: { status: 400, message: 'ログイン失敗' }
+      render status: 201, json: { status: 201, message: 'ログイン失敗' }
     end
   end
 
@@ -27,10 +27,10 @@ class Api::V1::SessionsController < ActionController::API
       if !logged_in?
         render status: 200, json: { status: 200, message: 'ログアウト成功' }
       else
-        render status: 400, json: { status: 400, message: 'ログアウト失敗' }
+        render status: 201, json: { status: 201, message: 'ログアウト失敗' }
       end
     else
-      render status: 401, json: { status: 401, message: 'そもそもログインしていません' }
+      render status: 201, json: { status: 201, message: 'そもそもログインしていません' }
     end
 
   end

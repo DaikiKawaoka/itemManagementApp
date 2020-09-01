@@ -2,14 +2,14 @@ class Item < ApplicationRecord
   attr_accessor :image
   belongs_to :user
   has_one_attached :item_image
-  validates :itemImage,   content_type: { in: %w[image/jpeg image/gif image/png image/jpg],
+  validates :item_image,   content_type: { in: %w[image/jpeg image/gif image/png image/jpg],
     message: "その画像は使用できません。" },
     size:         { less_than: 5.megabytes,
     message: "サイズが大きすぎます。" }
   validates :user_id, presence: true
   validates :name, presence: true,length: { maximum: 50 }
   validates :comment,length: { maximum: 255 }
-  validates :type, presence: true
+  validates :item_type, presence: true
   validates :assessment, presence: true
   validates :purchase_of_place, presence: true,length: { maximum: 30 }
   validates :price, presence: true

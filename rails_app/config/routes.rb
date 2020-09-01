@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get 'users/:id/edit' , to: "static_pages#home"
   get '/login' , to: "static_pages#home"
   delete '/logout', to: "api/v1/sessions#destroy"
+  get 'items/new' , to: "static_pages#home"
+  get 'items/:id' , to: "static_pages#home"
+  get 'items/:id/edit' , to: "static_pages#home"
   namespace :api, { format: 'json' } do
     namespace :v1 do
       resources :sessions

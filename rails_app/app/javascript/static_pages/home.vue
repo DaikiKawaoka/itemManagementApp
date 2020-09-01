@@ -19,6 +19,7 @@ export default {
   data() {
     return {
       user:{},
+      items:[],
       logged: false,
     };
   },
@@ -27,6 +28,9 @@ export default {
   },
   created () {
     this.login_user();
+    axios.get("/api/v1/items").then(res => {
+      this.items = res.data;
+    });
   },
   methods:{
     login_user: function() {
@@ -38,6 +42,7 @@ export default {
             this.logged = true;
           }else{
             this.logged = false;
+            this.$router.push({ name: 'loginPage'})
           }
         })
     },
