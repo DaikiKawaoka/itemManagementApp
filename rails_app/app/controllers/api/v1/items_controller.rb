@@ -1,7 +1,6 @@
 class Api::V1::ItemsController < ActionController::API
   before_action :logged_in?, only: [:create, :destroy,:update,:index]
-  before_action :current_user, only: [:update,]
-  before_action :set_item, only: [:show]
+  before_action :set_item, only: [:show,:update]
 
   def index
     @items = current_user.items
@@ -21,7 +20,7 @@ class Api::V1::ItemsController < ActionController::API
   end
 
   def create
-    @item = current_user.items.new(item_params_new)
+    @item = current_user.items.new(item_params)
     if @item.save
       @item.parse_base64(params[:image])
       render status: 200, json: { status: 200 }
@@ -31,7 +30,13 @@ class Api::V1::ItemsController < ActionController::API
   end
 
   def update
-
+    if current_user == @item.user
+      if @item.update(item_params)
+        
+      else
+        render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
+      end
+    end
   end
 
   def destroy
@@ -45,12 +50,7 @@ class Api::V1::ItemsController < ActionController::API
   end
 
     #データベースに登録
-    def item_params_new
-      params.require(:item).permit(:name, :comment,:assessment,:item_type,
-                                    :price,:purchase_of_place,:price,:purchase_date,:favorite)
-    end
-
-    def item_params_update
+    def item_params
       params.require(:item).permit(:name, :comment,:assessment,:item_type,
                                     :price,:purchase_of_place,:price,:purchase_date,:favorite)
     end
