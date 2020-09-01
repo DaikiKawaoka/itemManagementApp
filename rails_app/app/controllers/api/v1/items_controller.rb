@@ -1,6 +1,6 @@
 class Api::V1::ItemsController < ActionController::API
   before_action :logged_in?, only: [:create, :destroy,:update,:index]
-  before_action :set_item, only: [:show,:update]
+  before_action :set_item, only: [:show,:update,:destroy]
 
   def index
     @items = current_user.items
@@ -32,7 +32,6 @@ class Api::V1::ItemsController < ActionController::API
   def update
     if current_user == @item.user
       if @item.update(item_params)
-        
       else
         render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
       end
@@ -40,7 +39,10 @@ class Api::V1::ItemsController < ActionController::API
   end
 
   def destroy
-
+    if current_user == @item.user
+      @item.destroy
+      render status: 200, json: { status: 200 }
+    end
   end
 
   private

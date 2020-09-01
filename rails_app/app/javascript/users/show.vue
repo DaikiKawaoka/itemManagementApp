@@ -13,6 +13,7 @@
         <p id="profile_user_name" class="text-p">UserName: {{showUser.user_name}}</p>
         <p class="text-p">Comment: {{ showUser.comment }}</p>
         <p class="text-p">Email: {{ showUser.email }}</p>
+        <router-link v-if="logged" v-bind:to="{ name : 'userEdit', params : { id: user.id }}" class="a-tag">Edit</router-link>
       </div>
     </div>
   </div>
@@ -61,11 +62,11 @@ export default {
         if (response.status === 200) {
           this.user = {};
           this.logged = false;
-          this.$router.go()
+          this.$router.push({ name: 'loginPage'})
         }else if(res.status === 401){
           this.logged = false;
         }})
-    }
+    },
   }
 }
 </script>
@@ -93,9 +94,6 @@ export default {
 }
 .image{
   width: 450px;
-}
-.text{
-  margin-top: 30px;
 }
 .text-p{
   font-size: 20px;

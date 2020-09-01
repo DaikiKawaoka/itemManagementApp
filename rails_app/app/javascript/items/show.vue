@@ -18,6 +18,8 @@
         <p class="text-p">購入場所: {{ item.purchase_of_place }}</p>
         <p class="text-p">価格: {{ item.price }}</p>
         <p class="text-p">お気に入り: {{ item.favorite}}</p>
+        <el-button v-if="logged"><router-link v-if="logged" v-bind:to="{ name : 'itemEdit', params : { id: item.id }}" class="a-tag">Edit</router-link></el-button>
+        <el-button v-if="logged" @click="delete_item"><p class="a-tag">Delete</p></el-button>
       </div>
     </div>
   </div>
@@ -66,10 +68,20 @@ export default {
         if (response.status === 200) {
           this.user = {};
           this.logged = false;
-          this.$router.go()
+          this.$router.push({ name: 'loginPage'})
         }else if(res.status === 401){
           this.logged = false;
         }})
+    },
+    delete_item: function(){
+      axios
+        .delete("/api/v1/items/" + this.item.id)
+        .then(response=>{
+          if (response.status === 200) {
+            this.item = {};
+            this.$router.push({ name: 'staticHome'})
+          }
+        })
     }
   }
 }
