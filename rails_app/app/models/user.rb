@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-
+  #ユーザが消えるとItemも消える
+  has_many :items , dependent: :destroy
   has_one_attached :user_image
   attr_accessor :image
 
