@@ -14,6 +14,9 @@ export default {
     UserForm,
     HeaderPage,
   },
+  created () {
+    this.login_user();
+  },
   data() {
     return {
       user: {
@@ -41,7 +44,17 @@ export default {
             this.errors = error.response.data.errors;
           }
         });
-    }
+    },
+    login_user: function() {
+      axios
+        .get('/api/v1/sessions.json')
+        .then(response => {
+          if (response.status === 200){
+            this.$router.push({ name: 'staticHome'})
+          }else{
+          }
+        })
+    },
   }
 };
 </script>

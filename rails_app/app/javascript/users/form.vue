@@ -1,11 +1,14 @@
 <template>
   <el-form :model="user">
-
+    <h2 v-if="edit">プロフィール編集</h2>
+    <h2 v-else>ユーザー登録</h2>
     <div v-if="errors.length != 0">
       <ul v-for="e in errors" :key="e">
         <li><font color="red">{{ e }}</font></li>
       </ul>
     </div>
+
+    <input name="uploadedImage" type="file" ref="file" v-on:change="onFileChange()" v-if="edit">
 
     <el-form-item label="名前">
       <el-input
@@ -60,5 +63,31 @@ import axios from 'axios'
     errors: '',
     edit: false,
   },
+  data() {
+    return{
+      uploadedImage: ''
+    }
+    },
+    methods: {
+      onImageUploaded(e) {
+        // event(=e)から画像データを取得する
+        this.user.image = e.target.files[0]
+        console.log(this.user.image);
+        console.log(this.$parent.user.image);
+      },
+      onFileChange() {
+      let file = event.target.files[0] || event.dataTransfer.files
+      let reader = new FileReader()
+      reader.onload = () => {
+        this.uploadedImage = event.target.result
+        this.user.image = this.uploadedImage
+      }
+      reader.readAsDataURL(file)
+    },
+    }
  }
 </script>
+
+<style scoped>
+
+</style>

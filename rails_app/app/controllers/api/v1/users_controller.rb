@@ -14,6 +14,10 @@ class Api::V1::UsersController < ActionController::API
   end
 
   def show
+    user_image = @user.user_image
+    if user_image.present?
+      @user.imgtext = encode_base64(user_image) # 画像ファイルを1.で定義したメソッドでBase64エンコードし、renderするデータに追加する
+    end
   end
 
   def create
@@ -27,7 +31,7 @@ class Api::V1::UsersController < ActionController::API
 
   def update
     if @user.update(user_params_update)
-      head :no_content
+      @user.parse_base64(params[:image])
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end
@@ -44,7 +48,7 @@ class Api::V1::UsersController < ActionController::API
     end
 
     def user_params_update
-      params.permit(:name, :user_name, :comment, :email, :password, :password_confirmation)
+      params.permit(:name, :user_name, :comment, :email, :password, :password_confirmation, :image)
     end
 
     def render_status_404(exception)
@@ -53,6 +57,13 @@ class Api::V1::UsersController < ActionController::API
 
     def render_status_500(exception)
       render json: { errors: [exception] }, status: 500
+    end
+
+    # 各モデルのレコードに添付された画像ファイルをBase64でエンコードする
+    def encode_base64(image_file)
+      image = Base64.encode64(image_file.download) # 画像ファイルをActive Storageでダウンロードし、エンコードする
+      blob = ActiveStorage::Blob.find(image_file[:id]) # Blobを作成
+      "data:#{blob[:content_type]};base64,#{image}" # Vue側でそのまま画像として読み込み出来るBase64文字列にして返す
     end
 
 end
