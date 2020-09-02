@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <header-page @logout="logout" :logged="logged" :user="user"></header-page>
+    <header-page :logged="logged" :user="user"></header-page>
     <div v-if="logged">
       <h2>ホームページ</h2>
       <div class="item-divs">
@@ -32,36 +32,28 @@ export default {
   },
   created () {
     this.login_user();
-    axios.get("/api/v1/items").then(res => {
-      this.items = res.data;
-    });
+    // if (logged){
+      // axios.get("/api/v1/items").then(res => {
+      //   this.items = res.data;
+      // });
+    // }
   },
   methods:{
     login_user: function() {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status === 200){
+          if (response.status === 201){
+            this.$router.push({ name: 'loginPage'})
+          }else{
             this.user = response.data;
             this.logged = true;
-          }else{
-            this.logged = false;
-            this.$router.push({ name: 'loginPage'})
+            axios.get("/api/v1/items").then(res => {
+              this.items = res.data;
+            });
           }
         })
     },
-    logout: function() {
-      axios
-        .delete('/logout')
-        .then(response => {
-        if (response.status === 200) {
-          this.user = {};
-          this.logged = false;
-          this.$router.go()
-        }else if(res.status === 401){
-          this.logged = false;
-        }})
-    }
   }
 };
 </script>

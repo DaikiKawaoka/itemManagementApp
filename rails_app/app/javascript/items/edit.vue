@@ -45,11 +45,11 @@ export default {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status === 200){
-            this.logged = true;
-          }else{
+          if (response.status === 201){
             this.$router.push({ name: 'loginPage'})
           }
+            this.user = response.data;
+            this.logged = true;
         })
     },
     get_item: function() {

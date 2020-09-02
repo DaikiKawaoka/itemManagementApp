@@ -31,7 +31,9 @@ class Api::V1::UsersController < ActionController::API
 
   def update
     if @user.update(user_params_update)
-      @user.parse_base64(params[:image])
+      if(params[:image])
+        @user.parse_base64(params[:image])
+      end
     else
       render json: { errors: @user.errors.full_messages }, status: :unprocessable_entity
     end

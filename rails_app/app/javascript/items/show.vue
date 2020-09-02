@@ -53,25 +53,12 @@ export default {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status === 200){
+          if (response.status === 201){
+            this.$router.push({ name: 'loginPage'})
+          }
             this.user = response.data;
             this.logged = true;
-          }else{
-            this.logged = false;
-          }
         })
-    },
-    logout: function() {
-      axios
-        .delete('/logout')
-        .then(response => {
-        if (response.status === 200) {
-          this.user = {};
-          this.logged = false;
-          this.$router.push({ name: 'loginPage'})
-        }else if(res.status === 401){
-          this.logged = false;
-        }})
     },
     delete_item: function(){
       axios

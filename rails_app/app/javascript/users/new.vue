@@ -49,7 +49,7 @@ export default {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status === 200){
+          if (response.status !== 201){
             this.$router.push({ name: 'staticHome'})
           }
         })

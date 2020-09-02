@@ -13,7 +13,8 @@
         <p id="profile_user_name" class="text-p">UserName: {{showUser.user_name}}</p>
         <p class="text-p">Comment: {{ showUser.comment }}</p>
         <p class="text-p">Email: {{ showUser.email }}</p>
-        <router-link v-if="logged" v-bind:to="{ name : 'userEdit', params : { id: user.id }}" class="a-tag">Edit</router-link>
+        <el-button><router-link v-if="logged" v-bind:to="{ name : 'userEdit', params : { id: user.id }}" class="a-tag">Edit</router-link></el-button>
+        <el-button v-if="logged" @click="logout">Logout</el-button>
       </div>
     </div>
   </div>
@@ -47,12 +48,11 @@ export default {
       axios
         .get('/api/v1/sessions.json')
         .then(response => {
-          if (response.status === 200){
+          if (response.status === 201){
+            this.$router.push({ name: 'loginPage'})
+          }
             this.user = response.data;
             this.logged = true;
-          }else{
-            this.logged = false;
-          }
         })
     },
     logout: function() {
@@ -98,5 +98,10 @@ export default {
 .text-p{
   font-size: 20px;
   padding-bottom: 15px;
+}
+.a-tag{
+  font-size: 15px;
+  color: #606266;
+  text-decoration: none;
 }
 </style>
