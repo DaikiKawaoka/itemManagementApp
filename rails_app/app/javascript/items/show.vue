@@ -19,7 +19,7 @@
         <p class="text-p">価格: {{ item.price }}</p>
         <p class="text-p">お気に入り: {{ item.favorite}}</p>
         <el-button v-if="logged"><router-link v-if="logged" v-bind:to="{ name : 'itemEdit', params : { id: item.id }}" class="a-tag">Edit</router-link></el-button>
-        <el-button v-if="logged" @click="delete_item"><p class="a-tag">Delete</p></el-button>
+        <el-button v-if="logged" @click="delete_item"><span class="a-tag">Delete</span></el-button>
       </div>
     </div>
   </div>
@@ -108,5 +108,10 @@ export default {
 .text-p{
   font-size: 20px;
   padding-bottom: 15px;
+}
+.a-tag{
+  font-size: 15px;
+  color: #606266;
+  text-decoration: none;
 }
 </style>
