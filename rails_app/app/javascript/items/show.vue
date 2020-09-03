@@ -13,7 +13,7 @@
       <div class="text">
         <p class="text-p">アイテム名: {{item.name}}</p>
         <p class="text-p">コメント: {{item.comment}}</p>
-        <p class="text-p">タイプ: {{ item.item_type }}</p>
+        <p class="text-p">タイプ: {{ item_types[item.item_type] }}</p>
         <p class="text-p">購入日: {{ item.purchase_date }}</p>
         <p class="text-p">購入場所: {{ item.purchase_of_place }}</p>
         <p class="text-p">価格: {{ item.price }}</p>
@@ -35,6 +35,10 @@ export default {
       user: {},
       item:{},
       logged: false,
+      item_types:[
+        'その他','ファッション','書籍','ゲーム','コスメ','家電','食料品','音楽','日用品','薬','文房具','スポーツ＆アウトドア','乗り物',
+        'ベビー、おもちゃ','家具','パソコン、オフィス用品','その他',
+      ]
     }
   },
   components: {
